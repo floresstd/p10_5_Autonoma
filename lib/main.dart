@@ -9,62 +9,120 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Center(child: Text("Jesús Daniel Flores Rodríguez")),
+          backgroundColor: Color(0xffff4444),
+        ),
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomButton(
+                  text: "Button 1",
+                  color: Colors.amber,
+                  textColor: Colors.red,
+                  icon: Icons.star),
+              SizedBox(height: 15),
+              CustomButton(
+                  text: "Button 2",
+                  color: Colors.orange,
+                  textColor: Colors.white,
+                  icon: Icons.favorite),
+              SizedBox(height: 15),
+              CustomButton(
+                  text: "Button 3",
+                  color: Colors.white,
+                  textColor: Colors.green,
+                  borderColor: Colors.green,
+                  icon: Icons.check_circle),
+              SizedBox(height: 15),
+              CustomButton(
+                  text: "Button 4",
+                  color: Colors.purple,
+                  textColor: Colors.white,
+                  icon: Icons.thumb_up),
+              SizedBox(height: 15),
+              CustomButton(
+                  text: "Button 5",
+                  color: Colors.blueAccent,
+                  textColor: Colors.white,
+                  borderColor: Colors.blue,
+                  icon: Icons.arrow_forward),
+              SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.home, color: Colors.pink, size: 24),
+                  SizedBox(width: 8),
+                  Text("Home",
+                      style: TextStyle(color: Colors.pink, fontSize: 16)),
+                ],
+              ),
+              SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Text Link",
+                      style: TextStyle(color: Colors.blue, fontSize: 16)),
+                  SizedBox(width: 15),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                    ),
+                    child:
+                        Text("Elevated Button", style: TextStyle(fontSize: 16)),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class CustomButton extends StatelessWidget {
+  final String text;
+  final Color color;
+  final Color textColor;
+  final Color? borderColor;
+  final IconData? icon;
+
+  const CustomButton({
+    required this.text,
+    required this.color,
+    required this.textColor,
+    this.borderColor,
+    this.icon,
+  });
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xff111111),
-        elevation: 0,
-        title: Text(
-          "Jesús Daniel Flores Rodríguez", // Texto en el AppBar
-          style: TextStyle(
-            color: Color(0xffcfcfcf), // Color del texto
-            fontSize: 22, // Tamaño del texto
-            fontWeight: FontWeight.bold, // Negrita
-          ),
-        ),
+    return Container(
+      width: 180, // Se redujo el ancho del botón
+      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(10),
+        border: borderColor != null
+            ? Border.all(color: borderColor!, width: 2)
+            : null,
       ),
-      body: Stack(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Column(
-            children: [
-              Container(
-                color: Colors.blue,
-                height: MediaQuery.of(context).size.height * 0.55,
-                width: double.infinity,
-              ),
-              Expanded(
-                child: Container(
-                  color: Color(0xffd92f2f),
-                  width: double.infinity,
-                ),
-              ),
-            ],
-          ),
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0.47,
-            left: MediaQuery.of(context).size.width * 0.1,
-            child: Container(
-              height: 150,
-              width: MediaQuery.of(context).size.width * 0.8,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x6d000000),
-                    blurRadius: 5,
-                    spreadRadius: 2,
-                  ),
-                ],
-              ),
-            ),
+          if (icon != null) Icon(icon, color: textColor, size: 20),
+          if (icon != null) SizedBox(width: 6),
+          Text(
+            text,
+            style: TextStyle(
+                color: textColor, fontWeight: FontWeight.bold, fontSize: 16),
           ),
         ],
       ),
